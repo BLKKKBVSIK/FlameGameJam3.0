@@ -1,15 +1,15 @@
 import 'package:injectable/injectable.dart';
 import 'package:stacked/stacked.dart';
 import 'package:to_be_decided/services/navigation_service.dart';
-import 'package:window_manager/window_manager.dart';
-
+import 'package:to_be_decided/services/window_manager_service.dart';
 import '../../misc/routes.dart';
 
 @injectable
 class MenuViewModel extends BaseViewModel {
   final NavigationService _navigationService;
+  final WindowManagerService _windowManagerService;
 
-  MenuViewModel(this._navigationService);
+  MenuViewModel(this._navigationService, this._windowManagerService);
 
   void navigateToGame() {
     // Navigate to the actual game
@@ -19,7 +19,7 @@ class MenuViewModel extends BaseViewModel {
   void closeGame() async {
     // Close the game. TYVM for playing
     // Nikuu & Enzo!
-    await windowManager.close();
+    await _windowManagerService.closeWindows();
   }
 
   void navigateToSettings() {

@@ -18,4 +18,8 @@ class WindowManagerService with ListenableServiceMixin {
   void setFullScreen(bool isFullScreen) {
     windowManager.setFullScreen(isFullScreen);
   }
+
+  Future closeWindows() async {
+    await windowManager.close();
+  }
 }

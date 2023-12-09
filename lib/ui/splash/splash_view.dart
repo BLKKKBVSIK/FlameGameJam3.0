@@ -5,20 +5,8 @@ import 'package:stacked/stacked.dart';
 import '../../di/service_locator.dart';
 import 'splash_viewmodel.dart';
 
-class SplashView extends StatefulWidget {
-  final String? settings;
-
-  const SplashView({super.key, this.settings});
-
-  @override
-  State<SplashView> createState() => _SplashViewState();
-}
-
-class _SplashViewState extends State<SplashView> {
-  @override
-  void initState() {
-    super.initState();
-  }
+class SplashView extends StatelessWidget {
+  const SplashView({super.key});
 
   @override
   Widget build(BuildContext context) {

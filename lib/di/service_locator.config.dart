@@ -37,8 +37,10 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i6.WindowManagerService());
     gh.factory<_i7.CreditsViewModel>(
         () => _i7.CreditsViewModel(gh<_i4.NavigationService>()));
-    gh.factory<_i8.MenuViewModel>(
-        () => _i8.MenuViewModel(gh<_i4.NavigationService>()));
+    gh.factory<_i8.MenuViewModel>(() => _i8.MenuViewModel(
+          gh<_i4.NavigationService>(),
+          gh<_i6.WindowManagerService>(),
+        ));
     gh.factory<_i9.SettingsViewModel>(() => _i9.SettingsViewModel(
           gh<_i4.NavigationService>(),
           gh<_i6.WindowManagerService>(),

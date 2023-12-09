@@ -18,7 +18,9 @@ class RouteGenerator {
         return MaterialPageRouteNoAnim(builder: (context) => const MenuView());
       case Routes.splash:
         return MaterialPageRoute(
-            settings: settings, builder: (context) => SplashView(settings: settings.name));
+          settings: settings,
+          builder: (context) => SplashView(),
+        );
       default:
         return _errorRoute(settings);
     }
