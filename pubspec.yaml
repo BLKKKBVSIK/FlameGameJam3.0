@@ -33,6 +33,7 @@ flutter:
     - assets/credits/
     - assets/fonts/
     - assets/audio/
+    - assets/images/
   fonts:
     - family: LavaLava
       fonts:
