@@ -1,9 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:stacked/stacked.dart';
-import 'package:to_be_decided/services/flame_audio_service.dart';
-import 'package:to_be_decided/services/navigation_service.dart';
-import 'package:to_be_decided/services/window_manager_service.dart';
+
+import '../../services/flame_audio_service.dart';
+import '../../services/navigation_service.dart';
+import '../../services/window_manager_service.dart';
 
 @injectable
 class SettingsViewModel extends BaseViewModel {

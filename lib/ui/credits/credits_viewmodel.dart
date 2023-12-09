@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:stacked/stacked.dart';
-import 'package:to_be_decided/services/navigation_service.dart';
+
+import '../../services/navigation_service.dart';
 
 @injectable
 class CreditsViewModel extends BaseViewModel {

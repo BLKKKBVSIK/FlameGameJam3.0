@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:to_be_decided/widgets/game_app.dart';
 import '../ui/credits/credits_view.dart';
+import '../ui/game/game_view.dart';
 import '../ui/menu/menu_view.dart';
 import '../ui/settings/settings_view.dart';
 import '../ui/splash/splash_view.dart';
@@ -13,13 +13,13 @@ class RouteGenerator {
       case Routes.credits:
         return MaterialPageRouteNoAnim(builder: (context) => const CreditsView());
       case Routes.game:
-        return MaterialPageRouteNoAnim(builder: (context) => const GameApp());
+        return MaterialPageRouteNoAnim(builder: (context) => const GameView());
       case Routes.menu:
         return MaterialPageRouteNoAnim(builder: (context) => const MenuView());
       case Routes.splash:
         return MaterialPageRoute(
           settings: settings,
-          builder: (context) => SplashView(),
+          builder: (context) => const SplashView(),
         );
       default:
         return _errorRoute(settings);

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:to_be_decided/di/service_locator.dart';
-import 'package:to_be_decided/misc/routes.dart';
-import 'package:to_be_decided/misc/theme.dart';
-import 'package:to_be_decided/services/flame_audio_service.dart';
-import 'package:to_be_decided/services/window_manager_service.dart';
+import 'di/service_locator.dart';
+import 'misc/routes.dart';
+import 'misc/theme.dart';
+import 'services/flame_audio_service.dart';
 import 'services/navigation_service.dart';
+import 'services/window_manager_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +25,7 @@ class _MyGameAppState extends State<MyGameApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TBD',
+      title: 'FrostFire Flip',
       navigatorKey: sl<NavigationService>().navigatorKey,
       theme: GameTheme.theme,
       debugShowCheckedModeBanner: false,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:to_be_decided/di/service_locator.dart';
-import 'package:to_be_decided/ui/credits/credits_viewmodel.dart';
 
+import '../../di/service_locator.dart';
 import '../../widgets/back_button.dart';
 import '_widgets/madeBy.dart';
+import 'credits_viewmodel.dart';
 
 class CreditsView extends StatelessWidget {
   const CreditsView({super.key});
