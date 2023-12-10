@@ -10,7 +10,8 @@ class FlameAudioService with ListenableServiceMixin {
   // init method
   Future<void> init() async {
     FlameAudio.bgm.initialize();
-    await FlameAudio.bgm.play('long_rest.mp3', volume: _volume.value);
+    await FlameAudio.bgm
+        .play('galway-kevin-macleod-main-version.mp3', volume: _volume.value);
   }
 
   // set volume method
