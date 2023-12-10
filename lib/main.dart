@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'di/service_locator.dart';
 import 'misc/routes.dart';
@@ -8,8 +9,11 @@ import 'services/window_manager_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FlameAudioService().init();
-  await WindowManagerService().init();
+
+  if (!kIsWeb) {
+    await FlameAudioService().init();
+    await WindowManagerService().init();
+  }
   await setupDependencyInjection();
   runApp(const MyGameApp());
 }

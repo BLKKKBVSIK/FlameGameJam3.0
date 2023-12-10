@@ -62,6 +62,8 @@ class CreditsView extends StatelessWidget {
                       ),
                       const LogoCredits(logoPath: 'assets/credits/flame_logo.png'),
                       const LogoCredits(logoPath: 'assets/credits/firefly_logo.png'),
+                      Text("Music from uppbeat.io",
+                          style: Theme.of(context).textTheme.headlineLarge),
                       SizedBox(height: size.height * 0.1),
                     ],
                   ),

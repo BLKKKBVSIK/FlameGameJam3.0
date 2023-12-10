@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
 import 'dart:math' as math;
 
 import 'package:flame/components.dart';
@@ -8,7 +7,6 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:frostfire_flip/components/components.dart';
-import 'package:frostfire_flip/config.dart';
 import '../../../di/service_locator.dart';
 import '../../../services/flame_audio_service.dart';
 import 'memory_card.dart' as enzo;
