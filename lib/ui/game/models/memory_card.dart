@@ -25,6 +25,7 @@ class MemoryCard extends PositionComponent with TapCallbacks {
 
   @override
   void onTapDown(_) {
+    onTap();
     print("tapped down");
     flip();
   }

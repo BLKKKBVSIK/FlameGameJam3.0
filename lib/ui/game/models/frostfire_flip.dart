@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:frostfire_flip/components/components.dart';
 import 'package:frostfire_flip/config.dart';
-
 import 'memory_card.dart' as enzo;
 
 enum PlayState { welcome, playing, gameOver, won, pause }
@@ -25,6 +24,11 @@ class FrostFireFlip extends FlameGame with KeyboardEvents, TapDetector {
   final rand = math.Random();
   double get width => size.x;
   double get height => size.y;
+
+  final timerBeforeFlip = Timer(
+    5,
+  );
+  bool isTimerFinished = false;
 
   late PlayState _playState;
   PlayState get playState => _playState;
@@ -46,6 +50,18 @@ class FrostFireFlip extends FlameGame with KeyboardEvents, TapDetector {
   }
 
   @override
+  void update(double dt) {
+    super.update(dt);
+    timerBeforeFlip.update(dt);
+    if (timerBeforeFlip.finished) {
+      if (isTimerFinished == false) {
+        isTimerFinished = true;
+        world.children.whereType<enzo.MemoryCard>().forEach((card) => card.flip());
+      }
+    }
+  }
+
+  @override
   FutureOr<void> onLoad() async {
     super.onLoad();
 
@@ -63,15 +79,16 @@ class FrostFireFlip extends FlameGame with KeyboardEvents, TapDetector {
       for (var i = 0; i < 6; i++)
         for (var j = 1; j <= 2; j++)
           enzo.MemoryCard(
-              position: Vector2(
-                (i + 1) * 100 + (i + 2) * brickGutter,
-                (j + 2.0) * 150 + j * brickGutter,
-              ),
-              color: Colors.green,
-              imagePath: 'card_fire_1.png',
-              onTap: () {
-                print("eeewww");
-              }),
+            position: Vector2(
+              (i + 1) * 100 + (i + 2) * brickGutter,
+              (j + 2.0) * 150 + j * brickGutter,
+            ),
+            color: i % 2 == 0 ? Colors.blue : Colors.green,
+            imagePath: 'card_fire_1.png',
+            onTap: () {
+              print("Yolo");
+            },
+          ),
     ]);
   }
 
