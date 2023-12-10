@@ -2,7 +2,6 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'dart:typed_data';
 import 'dart:ui' as UI;
 
 import 'package:flutter/services.dart';
@@ -84,42 +83,3 @@ class MemoryCard extends PositionComponent with TapCallbacks {
     return completer.future;
   }
 }
-
-
-/* 
-
-class MemoryCardDisplay extends StatefulWidget {
-  const MemoryCardDisplay({super.key});
-
-  @override
-  State<MemoryCardDisplay> createState() => _MemoryCardDisplayState();
-}
-
-class _MemoryCardDisplayState extends State<MemoryCardDisplay> {
-  
-
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (!isFlipped) {
-          onTap();
-        }
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: isFlipped ? Colors.white : Colors.blue,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: isFlipped
-            ? Image.asset(
-                imagePath,
-                fit: BoxFit.cover,
-              )
-            : Container(),
-      ),
-    );
-  }
-}
- */

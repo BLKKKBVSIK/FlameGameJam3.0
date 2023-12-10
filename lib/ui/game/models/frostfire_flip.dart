@@ -25,9 +25,20 @@ class FrostFireFlip extends FlameGame with KeyboardEvents, TapDetector {
   double get width => size.x;
   double get height => size.y;
 
+  int difficulty = 0;
+
+  bool isGameRunning = false;
+
+  List<enzo.MemoryCard> get cards =>
+      world.children.whereType<enzo.MemoryCard>().where((element) => element.isFlipped).toList();
+
   final timerBeforeFlip = Timer(
-    5,
+    3,
   );
+  final timerTurn = Timer(
+    1,
+  );
+
   bool isTimerFinished = false;
 
   late PlayState _playState;
@@ -52,12 +63,47 @@ class FrostFireFlip extends FlameGame with KeyboardEvents, TapDetector {
   @override
   void update(double dt) {
     super.update(dt);
-    timerBeforeFlip.update(dt);
+
+    !timerBeforeFlip.isRunning() ? timerBeforeFlip.start() : timerBeforeFlip.update(dt);
+
+    if (cards.length == 2) {
+      !timerTurn.isRunning() ? timerTurn.start() : timerTurn.update(dt);
+      final cardPair =
+          world.children.whereType<enzo.MemoryCard>().where((element) => element.isFlipped);
+
+      print(cardPair.first.color == cardPair.last.color);
+
+      if (cardPair.first.color == cardPair.last.color) {
+        if (timerTurn.finished) {
+          world.removeWhere((element) => cardPair.contains(element));
+
+          timerTurn.reset();
+          cards.clear();
+        }
+      } else {
+        if (timerTurn.finished) {
+          cardPair.forEach((element) {
+            element.flip();
+          });
+          timerTurn.reset();
+          cards.clear();
+        }
+      }
+    }
+
+    print("Cards: ${cards.length}");
+
     if (timerBeforeFlip.finished) {
       if (isTimerFinished == false) {
         isTimerFinished = true;
         world.children.whereType<enzo.MemoryCard>().forEach((card) => card.flip());
       }
+    }
+
+    if (world.children.whereType<enzo.MemoryCard>().isEmpty && isGameRunning) {
+      playState = PlayState.won;
+      difficulty++;
+      isGameRunning = false;
     }
   }
 
@@ -76,20 +122,20 @@ class FrostFireFlip extends FlameGame with KeyboardEvents, TapDetector {
     playState = PlayState.playing;
 
     world.addAll([
-      for (var i = 0; i < 6; i++)
-        for (var j = 1; j <= 2; j++)
+      for (var i = 0; i < 6 + difficulty; i++)
+        for (var j = 1; j <= 2 + difficulty; j++)
           enzo.MemoryCard(
             position: Vector2(
-              (i + 1) * 100 + (i + 2) * brickGutter,
-              (j + 2.0) * 150 + j * brickGutter,
+              (size.x - (100 * i)) - (i + 3) * 100 + i * (gameWidth * 0.015),
+              (size.y - 150) - (j * 150 + j * ((gameWidth * 0.015) + 50)),
             ),
-            color: i % 2 == 0 ? Colors.blue : Colors.green,
+            color: i % 2 == 0 ? Colors.blue : Colors.red,
             imagePath: 'card_fire_1.png',
-            onTap: () {
-              print("Yolo");
-            },
+            onTap: () {},
           ),
     ]);
+    isTimerFinished = false;
+    isGameRunning = true;
   }
 
   @override
