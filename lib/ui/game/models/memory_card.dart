@@ -5,16 +5,15 @@ import 'dart:async';
 import 'dart:ui' as UI;
 
 import 'package:flutter/services.dart';
+import 'package:frostfire_flip/services/flame_audio_service.dart';
+
+import '../../../di/service_locator.dart';
 
 class MemoryCard extends PositionComponent with TapCallbacks {
-  final String imagePath;
-  final Function onTap;
   final Color color;
 
   MemoryCard({
     required Vector2 position,
-    required this.imagePath,
-    required this.onTap,
     required this.color,
   }) : super(
           size: Vector2(100, 150),
@@ -24,8 +23,7 @@ class MemoryCard extends PositionComponent with TapCallbacks {
 
   @override
   void onTapDown(_) {
-    onTap();
-    print("tapped down");
+    sl<FlameAudioService>().playEffect('card_flip.mp3');
     flip();
   }
 

@@ -24,4 +24,8 @@ class FlameAudioService with ListenableServiceMixin {
   Future<void> play(String audioPath) async {
     FlameAudio.bgm.play(audioPath, volume: _volume.value);
   }
+
+  Future<void> playEffect(String audioPath) async {
+    FlameAudio.play(audioPath, volume: _volume.value);
+  }
 }

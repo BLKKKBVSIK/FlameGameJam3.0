@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'dart:math' as math;
 
 import 'package:flame/components.dart';
@@ -8,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:frostfire_flip/components/components.dart';
 import 'package:frostfire_flip/config.dart';
+import '../../../di/service_locator.dart';
+import '../../../services/flame_audio_service.dart';
 import 'memory_card.dart' as enzo;
 
 enum PlayState { welcome, playing, gameOver, won, pause }
@@ -25,7 +28,7 @@ class FrostFireFlip extends FlameGame with KeyboardEvents, TapDetector {
   double get width => size.x;
   double get height => size.y;
 
-  int difficulty = 0;
+  int difficulty = 1;
 
   bool isGameRunning = false;
 
@@ -71,37 +74,39 @@ class FrostFireFlip extends FlameGame with KeyboardEvents, TapDetector {
       final cardPair =
           world.children.whereType<enzo.MemoryCard>().where((element) => element.isFlipped);
 
-      print(cardPair.first.color == cardPair.last.color);
-
       if (cardPair.first.color == cardPair.last.color) {
         if (timerTurn.finished) {
           world.removeWhere((element) => cardPair.contains(element));
-
           timerTurn.reset();
+          sl<FlameAudioService>().playEffect('level_complete.mp3');
           cards.clear();
         }
       } else {
         if (timerTurn.finished) {
-          cardPair.forEach((element) {
+          for (var element in cardPair) {
             element.flip();
-          });
+          }
           timerTurn.reset();
           cards.clear();
+          playState = PlayState.gameOver;
+          world.removeWhere((component) => component is enzo.MemoryCard);
+          difficulty = 0;
+          isGameRunning = false;
         }
       }
     }
 
-    print("Cards: ${cards.length}");
-
-    if (timerBeforeFlip.finished) {
+    /* if (timerBeforeFlip.finished) {
       if (isTimerFinished == false) {
         isTimerFinished = true;
         world.children.whereType<enzo.MemoryCard>().forEach((card) => card.flip());
+        sl<FlameAudioService>().playEffect('card_flip.mp3');
       }
-    }
+    } */
 
     if (world.children.whereType<enzo.MemoryCard>().isEmpty && isGameRunning) {
       playState = PlayState.won;
+      sl<FlameAudioService>().playEffect('clap_sound.mp3');
       difficulty++;
       isGameRunning = false;
     }
@@ -122,16 +127,14 @@ class FrostFireFlip extends FlameGame with KeyboardEvents, TapDetector {
     playState = PlayState.playing;
 
     world.addAll([
-      for (var i = 0; i < 6 + difficulty; i++)
-        for (var j = 1; j <= 2 + difficulty; j++)
+      for (var i = 0; i < 2 + difficulty; i++)
+        for (var j = 0; j < 2; j++)
           enzo.MemoryCard(
             position: Vector2(
               (size.x - (100 * i)) - (i + 3) * 100 + i * (gameWidth * 0.015),
-              (size.y - 150) - (j * 150 + j * ((gameWidth * 0.015) + 50)),
+              ((size.y - 150) + (j * 50)) - (j * 150 + (j) * ((gameWidth * 0.015) + 50)),
             ),
-            color: i % 2 == 0 ? Colors.blue : Colors.red,
-            imagePath: 'card_fire_1.png',
-            onTap: () {},
+            color: Colors.red, // colors.elementAt(i),
           ),
     ]);
     isTimerFinished = false;
@@ -156,7 +159,7 @@ class FrostFireFlip extends FlameGame with KeyboardEvents, TapDetector {
           playState = PlayState.pause;
           pauseEngine();
           return KeyEventResult.handled;
-        } else if (playState == PlayState.pause) {
+        } else {
           playState = PlayState.playing;
           resumeEngine();
           return KeyEventResult.handled;
@@ -166,5 +169,5 @@ class FrostFireFlip extends FlameGame with KeyboardEvents, TapDetector {
   }
 
   @override
-  Color backgroundColor() => const Color(0xfff2e8cf);
+  Color backgroundColor() => Colors.transparent;
 }
