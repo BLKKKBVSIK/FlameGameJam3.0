@@ -116,7 +116,7 @@ class FrostFireFlip extends FlameGame with KeyboardEvents, TapDetector {
   FutureOr<void> onLoad() async {
     super.onLoad();
 
-    camera.viewfinder.anchor = Anchor.topLeft;
+    camera.viewfinder.anchor = Anchor.center;
     world.add(PlayArea());
     playState = PlayState.welcome;
   }
@@ -126,13 +126,20 @@ class FrostFireFlip extends FlameGame with KeyboardEvents, TapDetector {
 
     playState = PlayState.playing;
 
+    final posMinX = ((((2 + difficulty) * 100) + ((2 + difficulty * 10)))) / 2;
+    final posMinY = (((2 + difficulty) * 150) + ((2 + difficulty * 10))) / 2;
+
     world.addAll([
       for (var i = 0; i < 2 + difficulty; i++)
         for (var j = 0; j < 2; j++)
+
+          // TODO(Nikuu): Center the cards here :(
+
+          // Place all the cards in the center of the screen
           enzo.MemoryCard(
             position: Vector2(
-              (size.x - (100 * i)) - (i + 3) * 100 + i * (gameWidth * 0.015),
-              ((size.y - 150) + (j * 50)) - (j * 150 + (j) * ((gameWidth * 0.015) + 50)),
+              -posMinX + ((i * 100) + (i * 10)),
+              ((j * 150) + (j * 10)),
             ),
             color: Colors.red, // colors.elementAt(i),
           ),
