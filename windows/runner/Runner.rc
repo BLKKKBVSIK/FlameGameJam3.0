@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "to_be_decided" "\0"
+            VALUE "FileDescription", "frostfire_flip" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "to_be_decided" "\0"
+            VALUE "InternalName", "frostfire_flip" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "to_be_decided.exe" "\0"
-            VALUE "ProductName", "to_be_decided" "\0"
+            VALUE "OriginalFilename", "frostfire_flip.exe" "\0"
+            VALUE "ProductName", "frostfire_flip" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

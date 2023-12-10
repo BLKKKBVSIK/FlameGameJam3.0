@@ -1,4 +1,4 @@
-package com.example.to_be_decided
+package com.example.frostfire_flip
 
 import io.flutter.embedding.android.FlutterActivity
 
